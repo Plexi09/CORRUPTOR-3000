@@ -212,9 +212,9 @@
         <footer>
             <p>Le CORRUPTOR 3000 est sous licence "Faites ce que vous voulez, de toute façon personne ne pourra lire vos fichiers après".</p>
             <p>Rappel : Le CORRUPTOR 3000 est un projet humoristique. Utilisez-le à vos risques et périls, et gardez toujours une copie de sauvegarde de vos fichiers importants. Parce que rire, c'est bien, mais pleurer sur des données perdues, c'est moins drôle.</p>
+            <p><a href="https://github.com/Plexi09/CORRUPTOR-3000" target="_blank" style="color: #e94560; text-decoration: none;">Voir le code source</a></p>
         </footer>
     </div>
-
     <script>
         const fileInput = document.getElementById('fileInput');
         const corruptButton = document.getElementById('corruptButton');
@@ -235,18 +235,23 @@
             try {
                 const arrayBuffer = await selectedFile.arrayBuffer();
                 const uint8Array = new Uint8Array(arrayBuffer);
-                
-                progressBar.style.display = 'block';
-                status.textContent = 'Corruption en cours... Préparez-vous à l\'apocalypse numérique !';
     
-                for (let i = 0; i < uint8Array.length; i++) {
-                    uint8Array[i] = Math.floor(Math.random() * 256);
-                    if (i % 1000 === 0) {
-                        const progress = (i / uint8Array.length) * 100;
-                        progressBarFill.style.width = `${progress}%`;
-                        progressBarFill.textContent = `${Math.round(progress)}%`;
-                        await new Promise(resolve => setTimeout(resolve, 0));
+                progressBar.style.display = 'block';
+                status.textContent = 'Corruption en cours...';
+    
+                const chunkSize = 1000000; // Taille du bloc. Un nombre plus haut rend la corruption plus rapide, mais diminu les performances
+                for (let i = 0; i < uint8Array.length; i += chunkSize) {
+                    for (let j = 0; j < chunkSize && (i + j) < uint8Array.length; j++) {
+                        uint8Array[i + j] = Math.floor(Math.random() * 256);
                     }
+    
+                    // Mise à jour de la barre de progression
+                    const progress = ((i + chunkSize) / uint8Array.length) * 100;
+                    progressBarFill.style.width = `${progress}%`;
+                    progressBarFill.textContent = `${Math.round(progress)}%`;
+    
+                    // Laisser le fil principal respirer
+                    await new Promise(resolve => setTimeout(resolve, 0));
                 }
     
                 const corruptedBlob = new Blob([uint8Array], { type: selectedFile.type });
@@ -258,16 +263,16 @@
                 a.textContent = 'Télécharger votre chef-d\'œuvre corrompu';
                 a.className = 'download-link';
     
-                status.innerHTML = 'Corruption terminée ! Votre fichier est maintenant aussi utile qu\'un parapluie en papier.<br>';
+                status.innerHTML = 'Corruption terminée !<br>';
                 status.appendChild(a);
     
                 progressBar.style.display = 'none';
             } catch (error) {
                 console.error('Erreur lors de la corruption du fichier :', error);
-                status.textContent = 'Une erreur est survenue pendant la corruption. Veuillez réessayer ou vérifier le fichier sélectionné.';
+                status.textContent = 'Une erreur est survenue pendant la corruption. Veuillez réessayer.';
                 progressBar.style.display = 'none';
             }
         });
-    </script>    
+    </script>
 </body>
 </html>
