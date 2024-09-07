@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORRUPTOR 3000</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #ff4136;
+        }
+        #fileInput {
+            display: none;
+        }
+        label, button {
+            background-color: #0074d9;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin: 10px;
+        }
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>CORRUPTOR 3000</h1>
+    <p>Téléchargez un fichier pour le corrompre.</p>
+    <input type="file" id="fileInput" />
+    <label for="fileInput">Choisir un fichier</label>
+    <button id="corruptButton" disabled>Corrompre le fichier</button>
+    <div id="status"></div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const corruptButton = document.getElementById('corruptButton');
+        const status = document.getElementById('status');
+        let selectedFile = null;
+
+        fileInput.addEventListener('change', (e) => {
+            selectedFile = e.target.files[0];
+            corruptButton.disabled = !selectedFile;
+            status.textContent = selectedFile ? `Fichier sélectionné : ${selectedFile.name}` : '';
+        });
+
+        corruptButton.addEventListener('click', async () => {
+            if (!selectedFile) return;
+
+            const arrayBuffer = await selectedFile.arrayBuffer();
+            const uint8Array = new Uint8Array(arrayBuffer);
+
+            // Corruption des données
+            for (let i = 0; i < uint8Array.length; i++) {
+                uint8Array[i] = Math.floor(Math.random() * 256);
+            }
+
+            // Création du fichier corrompu
+            const corruptedBlob = new Blob([uint8Array], { type: selectedFile.type });
+            const url = URL.createObjectURL(corruptedBlob);
+
+            // Création du lien de téléchargement
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = selectedFile.name;
+            a.textContent = 'Télécharger le fichier corrompu';
+            a.style.display = 'block';
+            a.style.marginTop = '20px';
+
+            status.innerHTML = '';
+            status.appendChild(a);
+        });
+    </script>
+</body>
+</html>
