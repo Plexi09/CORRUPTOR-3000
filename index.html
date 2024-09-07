@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CORRUPTOR 3000</title>
+    <title>CORRUPTOR 3000 - Votre solution de destruction de données numériques</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Press+Start+2P&display=swap');
 
@@ -26,13 +26,30 @@
             box-sizing: border-box;
         }
 
-        h1 {
+        h1, h2, h3 {
             font-family: 'Press Start 2P', cursive;
             color: #16213e;
             text-shadow: 3px 3px 0px #e94560;
+            text-align: center;
+        }
+
+        h1 {
             font-size: 2.5em;
             margin-bottom: 30px;
-            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #e94560;
+            text-shadow: none;
         }
 
         p {
@@ -113,22 +130,29 @@
             box-shadow: 8px 8px 0px #0f3460;
         }
 
-        .faq {
+        .faq, .how-it-works {
             background-color: #16213e;
             padding: 20px;
             margin-top: 40px;
             border-radius: 10px;
         }
 
-        .faq h2 {
+        .faq h2, .how-it-works h2 {
             color: #e94560;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            text-shadow: none;
         }
 
-        .faq p {
+        .faq p, .how-it-works p {
             color: #ffffff;
+        }
+
+        .how-it-works ol {
+            color: #ffffff;
+            padding-left: 20px;
+        }
+
+        .how-it-works li {
+            margin-bottom: 10px;
         }
 
         footer {
@@ -151,6 +175,27 @@
         
         <div id="progressBar"><div></div></div>
         <div id="status"></div>
+
+        <div class="how-it-works">
+            <h2>Comment ça marche ? 🛠️</h2>
+            <ol>
+                <li>Choisissez un fichier que vous n'aimez pas (ou que vous aimez trop, nous ne jugeons pas).</li>
+                <li>Cliquez sur le bouton magique "Corrompre".</li>
+                <li>Attendez que notre algorithme de destruction de pointe fasse son œuvre.</li>
+                <li>Téléchargez votre chef-d'œuvre nouvellement corrompu.</li>
+                <li>Profitez de l'expérience zen d'essayer d'ouvrir un fichier totalement inutilisable.</li>
+            </ol>
+            <p><strong>Note :</strong> Le CORRUPTOR 3000 conserve le nom, l'extension et la taille du fichier, parce que nous aimons garder les apparences. Nous garantissons 100% d'illisibilité ou votre argent est remboursé (Note : c'est gratuit, donc techniquement, c'est toujours vrai).</p>
+            
+            <h3>La magie derrière le chaos 🧙‍♂️</h3>
+            <p>Vous vous demandez comment nous transformons vos précieuses données en un magnifique chaos numérique ? Voici un aperçu simplifié de notre processus révolutionnaire :</p>
+            <ol>
+                <li>Nous lisons votre fichier bit par bit, comme un détective numérique particulièrement myope.</li>
+                <li>Notre générateur de nombres aléatoires ultra-sophistiqué entre en action. (imaginez un dé à 256 faces lancé par un singe savant)</li>
+                <li>Chaque bit de votre fichier est remplacé par un nouveau bit aléatoire. C'est comme si nous réécrivions votre fichier dans une langue alien.</li>
+            </ol>
+            <p>Et voilà ! Votre fichier est maintenant aussi compréhensible qu'un chat essayant d'expliquer la théorie des cordes. Profitez de votre nouveau chef-d'œuvre d'entropie numérique !</p>
+        </div>
 
         <div class="faq">
             <h2>FAQ 🙋‍♂️</h2>
@@ -177,46 +222,52 @@
         const progressBar = document.getElementById('progressBar');
         const progressBarFill = progressBar.querySelector('div');
         let selectedFile = null;
-
+    
         fileInput.addEventListener('change', (e) => {
             selectedFile = e.target.files[0];
             corruptButton.disabled = !selectedFile;
             status.textContent = selectedFile ? `Fichier sélectionné : ${selectedFile.name}` : '';
         });
-
+    
         corruptButton.addEventListener('click', async () => {
             if (!selectedFile) return;
-
-            const arrayBuffer = await selectedFile.arrayBuffer();
-            const uint8Array = new Uint8Array(arrayBuffer);
-            
-            progressBar.style.display = 'block';
-            status.textContent = 'Corruption en cours... Préparez-vous à l\'apocalypse numérique !';
-
-            for (let i = 0; i < uint8Array.length; i++) {
-                uint8Array[i] = Math.floor(Math.random() * 256);
-                if (i % 1000 === 0) {
-                    const progress = (i / uint8Array.length) * 100;
-                    progressBarFill.style.width = `${progress}%`;
-                    progressBarFill.textContent = `${Math.round(progress)}%`;
-                    await new Promise(resolve => setTimeout(resolve, 0));
+    
+            try {
+                const arrayBuffer = await selectedFile.arrayBuffer();
+                const uint8Array = new Uint8Array(arrayBuffer);
+                
+                progressBar.style.display = 'block';
+                status.textContent = 'Corruption en cours... Préparez-vous à l\'apocalypse numérique !';
+    
+                for (let i = 0; i < uint8Array.length; i++) {
+                    uint8Array[i] = Math.floor(Math.random() * 256);
+                    if (i % 1000 === 0) {
+                        const progress = (i / uint8Array.length) * 100;
+                        progressBarFill.style.width = `${progress}%`;
+                        progressBarFill.textContent = `${Math.round(progress)}%`;
+                        await new Promise(resolve => setTimeout(resolve, 0));
+                    }
                 }
+    
+                const corruptedBlob = new Blob([uint8Array], { type: selectedFile.type });
+                const url = URL.createObjectURL(corruptedBlob);
+    
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `corrompu_${selectedFile.name}`;
+                a.textContent = 'Télécharger votre chef-d\'œuvre corrompu';
+                a.className = 'download-link';
+    
+                status.innerHTML = 'Corruption terminée ! Votre fichier est maintenant aussi utile qu\'un parapluie en papier.<br>';
+                status.appendChild(a);
+    
+                progressBar.style.display = 'none';
+            } catch (error) {
+                console.error('Erreur lors de la corruption du fichier :', error);
+                status.textContent = 'Une erreur est survenue pendant la corruption. Veuillez réessayer ou vérifier le fichier sélectionné.';
+                progressBar.style.display = 'none';
             }
-
-            const corruptedBlob = new Blob([uint8Array], { type: selectedFile.type });
-            const url = URL.createObjectURL(corruptedBlob);
-
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `corrompu_${selectedFile.name}`;
-            a.textContent = 'Télécharger votre chef-d\'œuvre corrompu';
-            a.className = 'download-link';
-
-            status.innerHTML = 'Corruption terminée ! Votre fichier est maintenant aussi utile qu\'un parapluie en papier.<br>';
-            status.appendChild(a);
-
-            progressBar.style.display = 'none';
         });
-    </script>
+    </script>    
 </body>
 </html>
