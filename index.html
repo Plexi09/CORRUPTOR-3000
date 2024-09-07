@@ -5,46 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CORRUPTOR 3000</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Press+Start+2P&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a1a2e;
+            color: #e94560;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
             max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
             padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #16213e;
+            text-shadow: 3px 3px 0px #e94560;
+            font-size: 2.5em;
+            margin-bottom: 30px;
             text-align: center;
         }
-        h1 {
-            color: #ff4136;
+
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
+
         #fileInput {
             display: none;
         }
-        label, button {
-            background-color: #0074d9;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-block;
+
+        .button {
+            background-color: #0f3460;
+            color: #e94560;
+            border: none;
+            padding: 15px 30px;
             margin: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            box-shadow: 5px 5px 0px #e94560;
         }
+
+        .button:hover {
+            background-color: #e94560;
+            color: #0f3460;
+            box-shadow: 8px 8px 0px #16213e;
+        }
+
+        .button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
         #status {
             margin-top: 20px;
             font-weight: bold;
+            text-align: center;
+        }
+
+        #progressBar {
+            width: 100%;
+            background-color: #16213e;
+            margin-top: 20px;
+            display: none;
+            border: 2px solid #e94560;
+        }
+
+        #progressBar div {
+            width: 0%;
+            height: 30px;
+            background-color: #e94560;
+            text-align: center;
+            line-height: 30px;
+            color: #16213e;
+            font-weight: bold;
+        }
+
+        .download-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #e94560;
+            color: #16213e;
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 0px #0f3460;
+        }
+
+        .download-link:hover {
+            background-color: #16213e;
+            color: #e94560;
+            box-shadow: 8px 8px 0px #0f3460;
+        }
+
+        .faq {
+            background-color: #16213e;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+
+        .faq h2 {
+            color: #e94560;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .faq p {
+            color: #ffffff;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #e94560;
         }
     </style>
 </head>
 <body>
-    <h1>CORRUPTOR 3000</h1>
-    <p>Téléchargez un fichier pour le corrompre.</p>
-    <input type="file" id="fileInput" />
-    <label for="fileInput">Choisir un fichier</label>
-    <button id="corruptButton" disabled>Corrompre le fichier</button>
-    <div id="status"></div>
+    <div class="container">
+        <h1>CORRUPTOR 3000 🦹‍♂️💾</h1>
+        
+        <p>Bienvenue dans le monde merveilleux de la corruption de fichiers ! Le CORRUPTOR 3000 est là pour satisfaire tous vos besoins en matière de destruction de données numériques. Parce que parfois, la meilleure façon de protéger vos fichiers est de les rendre complètement illisibles !</p>
+        
+        <input type="file" id="fileInput" />
+        <label for="fileInput" class="button">Choisir un fichier</label>
+        <button id="corruptButton" class="button" disabled>Corrompre le fichier</button>
+        
+        <div id="progressBar"><div></div></div>
+        <div id="status"></div>
+
+        <div class="faq">
+            <h2>FAQ 🙋‍♂️</h2>
+            <p><strong>Q : Est-ce que je peux utiliser le CORRUPTOR 3000 pour mes devoirs ?</strong><br>
+            R : Techniquement oui, mais nous vous déconseillons fortement d'utiliser l'excuse "mon fichier a été corrompu" en 2024. Essayez plutôt "mon IA de compagnie l'a mangé".</p>
+
+            <p><strong>Q : Le CORRUPTOR 3000 peut-il corrompre ma vie amoureuse ?</strong><br>
+            R : Non, pour cela, nous vous recommandons nos autres produits : le PROCRASTINATOR 5000 ou le SENDS-AWKWARD-TEXTS-TO-EX 2.0.</p>
+
+            <p><strong>Q : Y a-t-il une version pro ?</strong><br>
+            R : Oui, elle s'appelle "formater votre disque dur par accident". C'est gratuit, mais les effets secondaires peuvent être coûteux.</p>
+        </div>
+
+        <footer>
+            <p>Le CORRUPTOR 3000 est sous licence "Faites ce que vous voulez, de toute façon personne ne pourra lire vos fichiers après".</p>
+            <p>Rappel : Le CORRUPTOR 3000 est un projet humoristique. Utilisez-le à vos risques et périls, et gardez toujours une copie de sauvegarde de vos fichiers importants. Parce que rire, c'est bien, mais pleurer sur des données perdues, c'est moins drôle.</p>
+        </footer>
+    </div>
 
     <script>
         const fileInput = document.getElementById('fileInput');
         const corruptButton = document.getElementById('corruptButton');
         const status = document.getElementById('status');
+        const progressBar = document.getElementById('progressBar');
+        const progressBarFill = progressBar.querySelector('div');
         let selectedFile = null;
 
         fileInput.addEventListener('change', (e) => {
@@ -58,26 +189,33 @@
 
             const arrayBuffer = await selectedFile.arrayBuffer();
             const uint8Array = new Uint8Array(arrayBuffer);
+            
+            progressBar.style.display = 'block';
+            status.textContent = 'Corruption en cours... Préparez-vous à l\'apocalypse numérique !';
 
-            // Corruption des données
             for (let i = 0; i < uint8Array.length; i++) {
                 uint8Array[i] = Math.floor(Math.random() * 256);
+                if (i % 1000 === 0) {
+                    const progress = (i / uint8Array.length) * 100;
+                    progressBarFill.style.width = `${progress}%`;
+                    progressBarFill.textContent = `${Math.round(progress)}%`;
+                    await new Promise(resolve => setTimeout(resolve, 0));
+                }
             }
 
-            // Création du fichier corrompu
             const corruptedBlob = new Blob([uint8Array], { type: selectedFile.type });
             const url = URL.createObjectURL(corruptedBlob);
 
-            // Création du lien de téléchargement
             const a = document.createElement('a');
             a.href = url;
-            a.download = selectedFile.name;
-            a.textContent = 'Télécharger le fichier corrompu';
-            a.style.display = 'block';
-            a.style.marginTop = '20px';
+            a.download = `corrompu_${selectedFile.name}`;
+            a.textContent = 'Télécharger votre chef-d\'œuvre corrompu';
+            a.className = 'download-link';
 
-            status.innerHTML = '';
+            status.innerHTML = 'Corruption terminée ! Votre fichier est maintenant aussi utile qu\'un parapluie en papier.<br>';
             status.appendChild(a);
+
+            progressBar.style.display = 'none';
         });
     </script>
 </body>
